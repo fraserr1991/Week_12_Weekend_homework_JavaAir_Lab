@@ -16,6 +16,7 @@ public class FlightTest {
     Passenger passenger1;
     Passenger passenger2;
     Passenger passenger3;
+    Passenger passenger4;
 
     CabinCrewMember cabinCrewMember1;
 
@@ -32,6 +33,8 @@ public class FlightTest {
         passenger1 = new Passenger("George", 2);
         passenger2 = new Passenger("Randy", 1);
         passenger3 = new Passenger("Nacho", 2);
+        passenger4 = new Passenger("Henry", 2);
+
 
         cabinCrewMember1 = new CabinCrewMember("Joe", Rank.FLIGHTATTENDANT);
 
@@ -59,5 +62,26 @@ public class FlightTest {
     public void canAddCabinCrewMembers(){
         flight1.addCabinCrewMember(cabinCrewMember1);
         assertEquals(1, flight1.countCabinCrewMembers());
+    }
+
+    @Test
+    public void canCheckAvailableSeats(){
+        assertEquals(3, flight1.getAvailableSeats());
+    }
+
+    @Test
+    public void canReduceAvailableSeatsWhenPassengerIsAdded(){
+        flight1.addPassenger(passenger1);
+        assertEquals(2, flight1.getAvailableSeats());
+    }
+
+    @Test
+    public void passengerCantBeAddedIfFlightIsFull(){
+        flight1.addPassenger(passenger1);
+        flight1.addPassenger(passenger2);
+        flight1.addPassenger(passenger3);
+        flight1.addPassenger(passenger4);
+        assertEquals(0, flight1.getAvailableSeats());
+        assertEquals(3, flight1.countPassengers());
     }
 }

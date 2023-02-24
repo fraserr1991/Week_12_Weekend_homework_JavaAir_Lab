@@ -57,7 +57,10 @@ public class Flight {
     }
 
     public void addPassenger(Passenger passenger){
-        passengers.add(passenger);
+        if(!isFlightFull()) {
+            passengers.add(passenger);
+            reduceAvailableSeats();
+        }
     }
 
     public int countPilots(){
@@ -67,11 +70,10 @@ public class Flight {
     public int countCabinCrewMembers(){
         return cabinCrewMembers.size();
     }
+
     public int countPassengers(){
         return passengers.size();
     }
-
-
 
     public String getFlightNumber() {
         return flightNumber;
@@ -93,5 +95,16 @@ public class Flight {
         return availableSeats;
     }
 
+
+    public void reduceAvailableSeats() {
+        availableSeats = availableSeats - 1;
+    }
+
+    public Boolean isFlightFull(){
+        if(availableSeats == 0){
+            return true;
+        }
+        return false;
+    }
 
 }
